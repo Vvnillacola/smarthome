@@ -2,7 +2,7 @@
 **Thema:** Smart-Home-Szenario-Editor  
 **Modul:** Anwendungsentwicklung III: Software Engineering
 
-**Studierende** Anna Knötgen, Marcel Kecker, Marcel Woker, Viktor Kalka
+**Studierende:** Anna Knötgen, Marcel Kecker, Marcel Woker, Viktor Kalka
 
 ---
 
@@ -19,57 +19,69 @@ Die Anwendung implementiert strikt das **Model-View-Controller (MVC) Architektur
 Das GUI-Layout folgt dem im Anhang des Leistungsnachweises empfohlenen Drei-Spalten-Prinzip für Desktop-Anwendungen:
 
 - **Hauptfenster (`BorderPane`):** Bildet den äußeren Rahmen.
-- **TopBar (`North`):** Enthält persistente Aktionen (Neu, Öffnen, Speichern) sowie eine globale Schnellwahl zur direkten Ausführung von Szenarien aus jeder Ansicht heraus.
-- **Navigationsbereich / Sidebar (`West`):** Eine übersichtliche Seitenleiste zur Umschaltung des Arbeitsbereichs zwischen den Kernbereichen *Räume*, *Geräte* und *Szenarien*.
-- **Arbeitsbereich (`Center`):** Dynamischer Workspace, der je nach Auswahl Tabellenansichten (`TableView`), Listen (`ListView`) oder detaillierte Formulare/Editoren darstellt.
-- **Zusatzbereich / Aktivitäts-Log (`East`):** Eine persistente `TextArea` zur Echtzeit-Protokollierung von Ereignissen (z. B. Zustandsänderungen von Aktoren nach einer Szenario-Ausführung) inklusive automatischem Zeitstempel.
-
-Das Styling wurde mithilfe des modernen **AtlantaFX-Themes** (*PrimerLight*) und einer externen `style.css` umgesetzt, um eine professionelle und konsistente Benutzerführung zu garantieren.
+- **TopBar (`North`):** Enthält persistente Aktionen wie das Laden und Speichern von Konfigurationsdateien sowie globale Steuerungselemente.
+- **Navigation (`West`):** Eine Toolbox oder Liste, um zwischen den Hauptbereichen (Räume, Geräte, Szenarien) zu wechseln.
+- **Arbeitsbereich (`Center`):** Zeigt dynamisch Tabellen, Formulare oder Detail-Editoren für die aktuell ausgewählten Elemente an.
+- **Protokollbereich (`South`):** Ein Aktivitäts-Log, das Systemereignisse, Konsolenausgaben und Fehler interaktiv visualisiert.
 
 ---
 
-### 3. Verwendete Softwarepakete und Werkzeuge
-- **Java SE Development Kit (JDK) 17:** Programmiergrundlage.
-- **JavaFX 21 (org.openjfx):** Framework für die grafische Oberfläche.
-- **AtlantaFX (io.github.mkpaz):** CSS-Theme-Bibliothek für native Steuerelemente.
-- **JUnit:** Testframework für automatisierte Unittests des Model-Layers.
-- **Apache Maven:** Build-Management und Dependency-Inversion-Werkzeug.
+### 3. Datenhaltung & JSON-Persistenz
+Die Speicherung und das Laden von Projekten erfolgt über das Framework **Jackson (ObjectMapper)**. Da es sich bei den Szenario-Aktionen um polymorphe Strukturen handelt (verschiedene Implementierungen des `Command`-Interfaces für Lampen, Heizungen und Rollläden), wurde ein robustes Mapping implementiert:
+
+- **Typerkennung:** Jackson nutzt die Annotation `@JsonTypeInfo` zur Identifikation der konkreten Implementierungsklassen über das interne Feld `commandClassType`.
+- **Entkopplung:** Die technischen Subtype-Namen (`LampOn`, `HeatingOff` etc.) wurden von den UI-Enums (`ActionType`) entkoppelt (`@JsonSubTypes`). Dies verhindert doppelte Attribute oder Namenskonflikte in den JSON-Dateien (`NeuTest.json`, `Smarthome.json`), falls verschiedene Geräte identische Befehlsnamen (z. B. `TURN_ON`) besitzen.
+- **Referenzintegrität:** Da Jackson beim Laden Objekte neu instanziiert, arbeiten alle Schutzmechanismen und Abgleiche auf Basis von eindeutigen IDs (`getID()`) oder eindeutigen Raumnamen anstelle volatiler Objektreferenzen.
 
 ---
 
 ### 4. Eingesetzte Entwurfsmuster (Design Patterns)
-Zur Einhaltung von Kernprinzipien des objektorientierten Designs wurden folgende Entwurfsmuster gezielt implementiert:
+Zur Sicherung der Codequalität und zur flexiblen Objektverwaltung wurden bewährte Entwurfsmuster der Softwaretechnik implementiert:
 
-1. **Command-Muster (Befehl):** Die Ausführung von Szenarioaktionen ist über ein `Command`-Interface gekapselt. Konkrete Klassen wie `SetBrightnessLampCommand` oder `SetTemperatureHeatingCommand` kapseln den Zustand, den Zielwert und den Empfänger (Aktor). Dies ermöglicht eine flexible Erweiterung, Sequenzierung und Entkopplung der Ausführung.
-2. **Factory-Muster (Fabrik):** Die Instanziierung von Geräten erfolgt zentral über die `DeviceFactory`. Dadurch wird die GUI von der konkreten Klassenerzeugung entkoppelt. Das System kennt zum Erstellungszeitpunkt nur den generischen Typ, die Fabrik liefert das passende Objekt zurück.
-3. **Observer-Muster (Beobachter):** Über das Event-Handling von JavaFX (z. B. `valueProperty().addListener(...)` oder `ObservableList`) reagiert die GUI automatisch und verzögerungsfrei auf Änderungen im darunterliegenden Model. Sobald ein Szenario ausgeführt wird, aktualisieren sich die Tabellen im Center-Bereich synchron.
+- **Command Pattern (Kommando-Muster):** Alle im Szenario ausführbaren Aktionen implementieren das gemeinsame Interface `Command`. Die konkrete Ausführungslogik ist in den Klassen gekapselt (z. B. `TurnOnLampCommand`, `SetTemperatureHeatingCommand`). Die GUI steuert die Aktionen ausschließlich abstrakt über das Interface an (`execute()`), was eine einfache Protokollierung und flexible Verkettung ermöglicht.
+- **Factory Pattern (Fabrikmuster):** Die Erzeugung der polymorphen Geräte und Kommandos wird über dedizierte Fabriken (`DeviceFactory` und `CommandFactory`) entkoppelt. Die Anwendung fordert Objekte an, ohne die exakten Konstruktoren oder Subklassen kennen zu müssen.
+- **Service Locator / Singleton-Ansatz:** Die Verwaltungskomponenten (`DeviceService`, `RoomService`, `ScenarioService`) arbeiten als zentrale Anlaufstellen im System, um den globalen Zustand im Arbeitsspeicher über den gesamten Lebenszyklus der Anwendung hinweg konsistent bereitzustellen.
 
 ---
 
 ### 5. Erweiterbarkeit um neue Gerätetypen
-Das System berücksichtigt konsequent das **Open/Closed-Prinzip**. Um einen komplett neuen Gerätetyp (z. B. `AirConditioner` oder `SmartLock`) einzuführen, sind **keine** Modifikationen am bestehenden Kerncode oder der SmartHomeApp notwendig:
+Die Architektur der Anwendung wurde gezielt nach dem **Open-Closed-Prinzip** (offen für Erweiterungen, geschlossen für Modifikationen) entworfen. Das Hinzufügen eines komplett neuen Gerätetyps (z. B. einer *Steckdose* oder eines *Lüfters*) erfordert keine strukturellen Änderungen am bestehenden Kerncode:
 
-1. Ein neuer Gerätetyp implementiert das bestehende `Device`-Interface oder erweitert die abstrakte Basisklasse innerhalb des `model.device.impl`-Packages.
-2. Die Registrierung des neuen Enums im `DeviceType` reicht aus, um die automatische Koppelung im Aktions-Editor zu triggern.
-3. *Erweiterungsausblick (Reflection):* Über Java-Reflection (`Class.forName()`) liest das System das Package dynamisch ein, sodass neue Typen zur Laufzeit ohne erneutes Kompilieren per Plug-and-Play zur Verfügung stehen.
-
----
-
-### 6. Testkonzept und Qualitätssicherung
-Die Qualitätssicherung ruht auf zwei Säulen:
-
-- **Automatisiertes Testen (Model & Service):** Mittels JUnit werden isolierte Tests für die Fachlogik durchgeführt. Getestet wird das Erstellen von Räumen, das Hinzufügen von Aktoren sowie die korrekte Kaskadierung von Werteänderungen bei der Ausführung komplexer Szenarien. Eine Mindestabdeckung von **50% Line-Coverage** ist im Build-Prozess fest verankert.
-- **GUI-Testing / Validierung:** Die Benutzeroberfläche fängt fehlerhafte Zustände interaktiv ab. Die Speichern-Schaltflächen in Dialogen (z. B. `openAddDevice`) werden über Listener dynamisch deaktiviert (`setDisable(true)`), solange Pflichtfelder leer sind oder ungültige Datentypen (z. B. Buchstaben im Temperaturfeld) eingegeben werden.
+1. **Modell erweitern:** Es wird eine neue Klasse erstellt, die vom Basis-Interface `Device` erbt bzw. die abstrakten Eigenschaften implementiert.
+2. **Kommandos anlegen:** Die gerätespezifischen Befehlsklassen werden erstellt und implementieren das `Command`-Interface.
+3. **Jackson-Registrierung:** Im zentralen `Command`-Interface wird die neue Klasse mit einer einzigen Zeile im `@JsonSubTypes`-Block registriert (z. B. `@JsonSubTypes.Type(value = TurnOnPlugCommand.class, name = "PlugOn")`).
+4. **GUI/Factory-Update:** In der `DeviceFactory` und in der ComboBox-Auswahl der GUI wird das neue Gerät registriert. Die restliche Anwendung (Tabellen, Szenario-Ausführung, Speicher- und Ladelogik) verarbeitet das neue Gerät dank der Schnittstellen-Abstraktion vollautomatisch.
 
 ---
 
-### 7. Build-Ablauf & Statische Codeanalyse
+### 6. Datenvalidierung & Löschschutz
+Die Geschäftslogik der Anwendung blockiert fehlerhafte Benutzeraktionen in Echtzeit und schützt die strukturelle Integrität des Smart Homes vor verwaisten Referenzen („Datenleichen“):
+
+- **Raum-Löschschutz:** Ein Raum kann im System erst gelöscht werden, wenn ihm im `DeviceService` keine aktiven Geräte mehr zugeordnet sind. Andernfalls wird der Löschvorgang blockiert und ein JavaFX `Alert`-Warning-Dialog angezeigt.
+- **Geräte-Löschschutz:** Ein Gerät darf nicht gelöscht werden, solange es noch als Aktor in mindestens einem Szenario-Kommando innerhalb des `ScenarioService` hinterlegt ist.
+- **JSON-Resistenz durch ID-Entkopplung:** Da Jackson beim Laden einer JSON-Datei Objekte im Arbeitsspeicher komplett neu instanziiert, würden klassische Objektreferenz-Vergleiche (`==` oder Standard-`.equals()`) nach dem Import versagen. Die Schutzmechanismen wurden daher so entworfen, dass sie die Integrität über eindeutige funktionale Schlüssel prüfen:
+    - Der Raum-Löschschutz prüft die Zuordnung über den eindeutigen `String` des Raumnamens (`device.getRoom().getName()`).
+    - Der Geräte-Löschschutz prüft die Verwendung innerhalb von Szenarien über den Abgleich der eindeutigen Geräte-UUID (`cmd.getDevice().getId()`).
+
+---
+
+### 7. Qualitätssicherung & Testkonzept
+- **Automatisierte Unit-Tests:** Mithilfe von **JUnit 4** und **TestFX** werden funktionale Prüfungen der Core-Logik sowie automatisierte Oberflächen-Interaktionen durchgeführt. Getestet wird das Erstellen von Räumen, das Hinzufügen von Aktoren sowie die korrekte Kaskadierung von Werteänderungen bei der Ausführung komplexer Szenarien. Eine Mindestabdeckung von **50% Line-Coverage** ist im Build-Prozess fest verankert.
+- **GUI-Testing / Validierung:** Die Benutzeroberfläche fängt fehlerhafte Zustände interaktiv ab. Die Speichern-Schaltflächen in Dialogen werden über Listener dynamisch deaktiviert (`setDisable(true)`), solange Pflichtfelder leer sind oder ungültige Datentypen (z. B. Buchstaben im Temperaturfeld) eingegeben werden.
+
+---
+
+### 8. Build-Ablauf & Statische Codeanalyse
 Der gesamte Build-Prozess ist über den Maven-Lifecycle standardisiert. Er erzwingt beim Aufruf von `mvn clean verify` die strikte Einhaltung des Qualitäts-Gateways in folgender Reihenfolge:
 
-1. **`validate`:** Der Quellcode wird mittels **Checkstyle** gegen die strengen Formatierungsvorgaben des *Google Java Styles* geprüft.
+1. **`validate`:** Der Quellcode wird mittels **Checkstyle** vollautomatisch verifiziert. Hierbei ist das offizielle und strenge Regelwerk des **Google Java Styles** (`google_checks.xml`) fest integriert. Es deckt weit über die geforderten 10 Mindestregeln ab und prüft Kriterien wie:
+    - Namenskonventionen (Klassen, Methoden, Variablen und Konstanten)
+    - Blockaufbau und Klammerplatzierung (`LeftCurly`, `RightCurly`)
+    - Vermeidung von Wildcard-Imports
+    - Whitespace-Regeln und Code-Formatierung
+      Schlägt ein Stil-Verstoß an, bricht das Plug-in den Build sofort mit einem Fehler ab (`failsOnError=true`).
 2. **`compile`:** Kompilierung des Quellcodes auf Basis von JDK 17.
 3. **`test`:** Ausführung aller JUnit-Tests. Schlägt ein funktionaler Test fehl, bricht Maven ab.
-4. **`verify`:** Aktivierung von **PMD** (Suche nach ungenutzten Variablen, Code-Duplikaten) und **SpotBugs** (Laufzeitsicherheits-Prüfung). Insgesamt sind weit über die geforderten 10 Kernregeln aktiv. Erst wenn alle statischen Codeanalysen fehlerfrei sind, wird das lauffähige JAR-Artefakt erzeugt.
 
-### 8. Starten der Anwendung
+### 9. Starten der Anwendung
 `mvn javafx:run`

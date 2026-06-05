@@ -13,7 +13,7 @@ public class TurnOnLampCommand extends BaseCommand {
 
     private final Lamp lamp;
 
-    // Der Jackson-Konstruktor für das Einschalten der Lampe
+
     @JsonCreator
     public TurnOnLampCommand(
             @JsonProperty("id") String id,

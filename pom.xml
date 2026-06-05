@@ -120,40 +120,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.8.3.0</version>
-        <configuration>
-          <effort>Max</effort>
-          <threshold>Low</threshold>
-          <xmlOutput>false</xmlOutput>
-          <htmlOutput>true</htmlOutput>
-          <fork>true</fork>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.21.2</version>
-        <configuration>
-          <targetJdk>${java.version}</targetJdk>
-          <printFailingErrors>true</printFailingErrors>
-          <linkXRef>false</linkXRef>
-          <failOnViolation>false</failOnViolation>
-        </configuration>
-        <executions>
-          <execution>
-            <id>pmd-check</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-              <goal>cpd-check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
 
     </plugins>
   </build>

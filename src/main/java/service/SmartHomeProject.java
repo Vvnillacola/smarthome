@@ -24,7 +24,6 @@ public class SmartHomeProject {
         this.scenarios = scenarios;
     }
 
-    // Getter / Setter
 
     public List<Raum> getRooms() {
         return rooms;

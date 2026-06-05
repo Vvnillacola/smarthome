@@ -2,7 +2,6 @@ package service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.room.Raum;
 import model.scenario.Scenario;
 
 import java.util.List;

@@ -13,7 +13,7 @@ public class RollUpShutterCommand extends BaseCommand {
 
     private final Shutter shutter;
 
-    // Der Jackson-Konstruktor für das Hochfahren
+
     @JsonCreator
     public RollUpShutterCommand(
             @JsonProperty("id") String id,
@@ -21,7 +21,7 @@ public class RollUpShutterCommand extends BaseCommand {
             @JsonProperty("actionType") ActionType actionType,
             @JsonProperty("orderIndex") int orderIndex
     ) {
-        // Übergabe an den Jackson-Konstruktor von BaseCommand
+
         super(id, shutter, actionType, orderIndex);
         this.shutter = shutter;
     }

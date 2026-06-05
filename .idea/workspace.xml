@@ -4,19 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2d652f0-6aab-4d3f-ab25-b4c4b31f3b15" name="Changes" comment="Tests angepasst ergänz und überarbeitet">
+    <list default="true" id="a2d652f0-6aab-4d3f-ab25-b4c4b31f3b15" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SmartHomeGuiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SmartHomeGuiTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/factory/CommandFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/factory/CommandFactoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/RollDownShutterCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/RollDownShutterCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/RollUpShutterCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/RollUpShutterCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/SetBrightnessLampCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/SetBrightnessLampCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/SetPositionShutterCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/SetPositionShutterCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/SetTemperatureHeatingCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/SetTemperatureHeatingCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOFfLampCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOFfLampCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOffHeatingCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOffHeatingCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOnHeatingCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOnHeatingCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOnLampCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/action/impl/TurnOnLampCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Begleitdokument.md" beforeDir="false" afterPath="$PROJECT_DIR$/Begleitdokument.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SmartHomeApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SmartHomeApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/RollDownShutterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/RollDownShutterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/RollUpShutterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/RollUpShutterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/SetBrightnessLampCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/SetBrightnessLampCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/SetPositionShutterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/SetPositionShutterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/SetTemperatureHeatingCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/SetTemperatureHeatingCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/TurnOnHeatingCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/TurnOnHeatingCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/action/impl/TurnOnLampCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/action/impl/TurnOnLampCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/room/Raum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/room/Raum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ScenarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ScenarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/SmartHomeProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/SmartHomeProject.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,41 +69,42 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.SmartHomeApp.executor": "Run",
-    "JUnit.ActionTypeTest.executor": "Run",
+    "JUnit.ActionTypeTest.executor": "Coverage",
     "JUnit.BaseCommandTest.executor": "Coverage",
-    "JUnit.CommandFactoryTest.executor": "Run",
+    "JUnit.CommandFactoryTest.executor": "Coverage",
     "JUnit.CommandFactoryTest.testCreateTurnOnLampCommand.executor": "Run",
-    "JUnit.DeviceFactoryTest.executor": "Run",
+    "JUnit.DeviceFactoryTest.executor": "Coverage",
     "JUnit.DeviceFactoryTest.testCreateDeviceWithoutRoom.executor": "Run",
-    "JUnit.DeviceServiceTest.executor": "Run",
+    "JUnit.DeviceServiceTest.executor": "Coverage",
     "JUnit.HeatingCommandTest.executor": "Run",
     "JUnit.HeatingCommandTest.testTurnOnHeatingCommand.executor": "Run",
     "JUnit.HeatingTest.executor": "Run",
     "JUnit.HeatingTest.testSetRoom.executor": "Coverage",
-    "JUnit.LampTest.executor": "Run",
-    "JUnit.RaumTest.executor": "Run",
+    "JUnit.LampTest.executor": "Coverage",
+    "JUnit.RaumTest.executor": "Coverage",
     "JUnit.RaumTest.testCreateRaum.executor": "Run",
-    "JUnit.RollDownShutterCommandTest.executor": "Run",
-    "JUnit.RollUpShutterCommandTest.executor": "Run",
-    "JUnit.RoomServiceTest.executor": "Run",
-    "JUnit.ScenarioServiceTest.executor": "Run",
-    "JUnit.ScenarioTest.executor": "Run",
-    "JUnit.SetBrightnessLampCommandTest.executor": "Run",
-    "JUnit.SetPositionShutterCommandTest.executor": "Run",
-    "JUnit.SetTemperatureHeatingCommandTest.executor": "Run",
-    "JUnit.ShutterTest.executor": "Run",
+    "JUnit.RollDownShutterCommandTest.executor": "Coverage",
+    "JUnit.RollUpShutterCommandTest.executor": "Coverage",
+    "JUnit.RoomServiceTest.executor": "Coverage",
+    "JUnit.ScenarioServiceTest.executor": "Coverage",
+    "JUnit.ScenarioTest.executor": "Coverage",
+    "JUnit.SetBrightnessLampCommandTest.executor": "Coverage",
+    "JUnit.SetPositionShutterCommandTest.executor": "Coverage",
+    "JUnit.SetTemperatureHeatingCommandTest.executor": "Coverage",
+    "JUnit.ShutterTest.executor": "Coverage",
     "JUnit.SmartHomeGuiTest,testSzenarioAnlegenViaGui and 1 more.executor": "Run",
     "JUnit.SmartHomeGuiTest.executor": "Run",
-    "JUnit.TurnOFfLampCommandTest.executor": "Run",
-    "JUnit.TurnOffHeatingCommandTest.executor": "Run",
-    "JUnit.TurnOnHeatingCommandTest.executor": "Run",
-    "JUnit.TurnOnLampCommandTest.executor": "Run",
+    "JUnit.TurnOFfLampCommandTest.executor": "Coverage",
+    "JUnit.TurnOffHeatingCommandTest.executor": "Coverage",
+    "JUnit.TurnOnHeatingCommandTest.executor": "Coverage",
+    "JUnit.TurnOnLampCommandTest.executor": "Coverage",
+    "Maven.smarthome [clean,verify].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
-    "git-widget-placeholder": "tests",
+    "git-widget-placeholder": "Letzte-änderungen-hoffentlich",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -120,10 +125,33 @@
       <recent name="factory" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SmartHomeApp">
-    <configuration name="SmartHomeApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SmartHomeApp" />
+  <component name="RunManager" selected="JUnit.SmartHomeGuiTest">
+    <configuration name="BaseCommandTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="smarthome" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="model.action.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="model.action" />
+      <option name="MAIN_CLASS_NAME" value="model.action.BaseCommandTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="smarthome" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="factory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="factory" />
+      <option name="MAIN_CLASS_NAME" value="factory.CommandFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -143,31 +171,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RoomServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ScenarioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="smarthome" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="service.*" />
+          <option name="PATTERN" value="model.scenario.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.RoomServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ScenarioServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="smarthome" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="service" />
-      <option name="MAIN_CLASS_NAME" value="service.ScenarioServiceTest" />
+      <option name="PACKAGE_NAME" value="model.scenario" />
+      <option name="MAIN_CLASS_NAME" value="model.scenario.ScenarioTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -184,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SmartHomeApp" />
         <item itemvalue="JUnit.SmartHomeGuiTest" />
-        <item itemvalue="JUnit.ScenarioServiceTest" />
-        <item itemvalue="JUnit.RoomServiceTest" />
         <item itemvalue="JUnit.DeviceServiceTest" />
+        <item itemvalue="JUnit.CommandFactoryTest" />
+        <item itemvalue="JUnit.ScenarioTest" />
+        <item itemvalue="JUnit.BaseCommandTest" />
       </list>
     </recent_temporary>
   </component>
@@ -209,25 +222,12 @@
       <updated>1780586836427</updated>
       <workItem from="1780586838399" duration="497000" />
       <workItem from="1780587345073" duration="373000" />
-      <workItem from="1780674811351" duration="6870000" />
+      <workItem from="1780674811351" duration="5585000" />
     </task>
-    <task id="LOCAL-00001" summary="Tests angepasst ergänz und überarbeitet">
-      <option name="closed" value="true" />
-      <created>1780681340350</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1780681340350</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Tests angepasst ergänz und überarbeitet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tests angepasst ergänz und überarbeitet" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/smarthome$TurnOffHeatingCommandTest.ic" NAME="TurnOffHeatingCommandTest Coverage Results" MODIFIED="1780678508149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
@@ -248,12 +248,11 @@
     <SUITE FILE_PATH="coverage/smarthome$ScenarioServiceTest.ic" NAME="ScenarioServiceTest Coverage Results" MODIFIED="1780677789018" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/smarthome$SmartHomeGuiTest.ic" NAME="SmartHomeGuiTest Coverage Results" MODIFIED="1780681192877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/smarthome$DeviceServiceTest.ic" NAME="DeviceServiceTest Coverage Results" MODIFIED="1780677771690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>service.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/smarthome$HeatingTest_testSetRoom.ic" NAME="HeatingTest.testSetRoom Coverage Results" MODIFIED="1780677686445" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>model.device.impl.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/smarthome$DeviceServiceTest.ic" NAME="DeviceServiceTest Coverage Results" MODIFIED="1780681152431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/smarthome$SetPositionShutterCommandTest.ic" NAME="SetPositionShutterCommandTest Coverage Results" MODIFIED="1780678293665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>model.action.impl.*</FILTER>
@@ -285,11 +284,11 @@
     <SUITE FILE_PATH="coverage/smarthome$SetTemperatureHeatingCommandTest.ic" NAME="SetTemperatureHeatingCommandTest Coverage Results" MODIFIED="1780678342194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>model.action.impl.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/smarthome$CommandFactoryTest.ic" NAME="CommandFactoryTest Coverage Results" MODIFIED="1780677644411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>factory.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/smarthome$RollDownShutterCommandTest.ic" NAME="RollDownShutterCommandTest Coverage Results" MODIFIED="1780678057333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>model.action.impl.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/smarthome$CommandFactoryTest.ic" NAME="CommandFactoryTest Coverage Results" MODIFIED="1780681110044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>factory.*</FILTER>
     </SUITE>
   </component>
 </project>

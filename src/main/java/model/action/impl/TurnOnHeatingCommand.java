@@ -13,7 +13,7 @@ public class TurnOnHeatingCommand extends BaseCommand {
 
     private final Heating heating;
 
-    // Der Jackson-Konstruktor für das Einschalten der Heizung
+
     @JsonCreator
     public TurnOnHeatingCommand(
             @JsonProperty("id") String id,
