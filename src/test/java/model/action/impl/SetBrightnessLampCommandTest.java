@@ -30,7 +30,7 @@ public class SetBrightnessLampCommandTest extends TestCase {
                 targetBrightness
         );
 
-        // Überprüfung der Delegierung an BaseCommand & des eigenen Feldes
+        // Prüft die Weitergabe an BaseCommand und das gerätespezifische Feld.
         assertEquals(customId, cmd.getID());
         assertEquals(lamp, cmd.getDevice());
         assertEquals(ActionType.SET_BRIGHTNESS, cmd.getActionType());
@@ -39,9 +39,9 @@ public class SetBrightnessLampCommandTest extends TestCase {
     }
 
     public void testExecuteChangesBrightnessWhenLampIsTurnedOn() {
-        // Zustand auf TURNED_ON setzen, damit die Bedingung im Code erfüllt ist
+        // Zustand auf TURNED_ON gesetzt, damit die Ausführungsbedingung erfüllt ist.
         lamp.setState(State.TURNED_ON);
-        lamp.setBrightness(10); // Alter Wert
+        lamp.setBrightness(10);
 
         SetBrightnessLampCommand cmd = new SetBrightnessLampCommand(
                 "CMD-1",
@@ -53,14 +53,14 @@ public class SetBrightnessLampCommandTest extends TestCase {
 
         cmd.execute();
 
-        // Der Wert muss sich geändert haben
+        // Erwartete Helligkeit nach Ausführung:
         assertEquals(85, lamp.getBrightness());
     }
 
     public void testExecuteDoesNotChangeBrightnessWhenLampIsTurnedOff() {
-        // Zustand ist standardmäßig TURNED_OFF oder explizit setzen
+        // Zustand auf TURNED_OFF gesetzt, damit die Ausführungsbedingung nicht erfüllt ist.
         lamp.setState(State.TURNED_OFF);
-        lamp.setBrightness(10); // Alter Wert
+        lamp.setBrightness(10);
 
         SetBrightnessLampCommand cmd = new SetBrightnessLampCommand(
                 "CMD-2",
@@ -72,7 +72,7 @@ public class SetBrightnessLampCommandTest extends TestCase {
 
         cmd.execute();
 
-        // Da die Lampe aus ist, muss die Helligkeit unverändert bei 10 bleiben!
+        // Helligkeit bleibt unverändert, da die Lampe ausgeschaltet ist.
         assertEquals(10, lamp.getBrightness());
     }
 
@@ -86,10 +86,10 @@ public class SetBrightnessLampCommandTest extends TestCase {
         );
 
         try {
-            // Durch deinen Null-Check "if (lamp != null ...)" darf hier keine Exception fliegen
+            // Der Null-Check in execute() verhindert eine NullPointerException.
             cmd.execute();
         } catch (NullPointerException e) {
-            fail("execute() sollte bei einer null-Lampe robust sein und keine NullPointerException werfen.");
+            fail("execute() muss bei einem null-Gerät robust sein und darf keine NullPointerException werfen.");
         }
     }
 }

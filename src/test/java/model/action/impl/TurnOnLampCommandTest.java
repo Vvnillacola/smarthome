@@ -28,7 +28,7 @@ public class TurnOnLampCommandTest extends TestCase {
                 orderIndex
         );
 
-        // Überprüfung, ob die Parameter korrekt an BaseCommand weitergegeben wurden
+        // Prüft, ob die Parameter korrekt an BaseCommand weitergegeben werden.
         assertEquals(customId, cmd.getID());
         assertEquals(lamp, cmd.getDevice());
         assertEquals(ActionType.TURN_ON, cmd.getActionType());
@@ -36,7 +36,7 @@ public class TurnOnLampCommandTest extends TestCase {
     }
 
     public void testExecuteChangesLampStateToTurnedOn() {
-        // Ausgangszustand explizit auf TURNED_OFF setzen, um die Änderung zu prüfen
+        // Ausgangszustand explizit auf TURNED_OFF gesetzt, um die Zustandsänderung prüfbar zu machen.
         lamp.setState(State.TURNED_OFF);
 
         TurnOnLampCommand cmd = new TurnOnLampCommand(
@@ -46,10 +46,9 @@ public class TurnOnLampCommandTest extends TestCase {
                 0
         );
 
-        // Befehl ausführen
         cmd.execute();
 
-        // Fachliche Zusicherung prüfen
+        // Erwarteter Zustand nach Ausführung:
         assertEquals(State.TURNED_ON, lamp.getState());
     }
 
@@ -62,11 +61,10 @@ public class TurnOnLampCommandTest extends TestCase {
         );
 
         try {
-            // Durch den Null-Check "if (lamp != null)" in deiner execute()-Methode
-            // darf hier keine NullPointerException fliegen.
+            // Der Null-Check in execute() verhindert eine NullPointerException.
             cmd.execute();
         } catch (NullPointerException e) {
-            fail("execute() sollte bei einer null-Lampe robust sein und keine NullPointerException werfen.");
+            fail("execute() muss bei einem null-Gerät robust sein und darf keine NullPointerException werfen.");
         }
     }
 }

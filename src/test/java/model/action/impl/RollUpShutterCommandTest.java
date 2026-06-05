@@ -28,7 +28,7 @@ public class RollUpShutterCommandTest extends TestCase {
                 orderIndex
         );
 
-        // Überprüfung, ob die Parameter korrekt über super() an BaseCommand weitergegeben wurden
+        // Prüft, ob die Parameter korrekt über super() an BaseCommand weitergegeben werden.
         assertEquals(customId, cmd.getID());
         assertEquals(shutter, cmd.getDevice());
         assertEquals(ActionType.ROLL_UP, cmd.getActionType());
@@ -36,7 +36,7 @@ public class RollUpShutterCommandTest extends TestCase {
     }
 
     public void testExecuteChangesShutterStateAndPosition() {
-        // Ausgangszustand geschlossen (unten) setzen, um die Änderung nach oben zu testen
+        // Ausgangszustand auf ROLLED_DOWN gesetzt, um die Änderung nach oben prüfbar zu machen.
         shutter.setState(State.ROLLED_DOWN);
         shutter.setPosition(100);
 
@@ -47,10 +47,9 @@ public class RollUpShutterCommandTest extends TestCase {
                 0
         );
 
-        // Befehl ausführen
         cmd.execute();
 
-        // Fachliche Zusicherungen prüfen (oben ist Zustand ROLLED_UP und Position 0)
+        // Erwarteter Zustand nach Ausführung (oben = ROLLED_UP, Position 0):
         assertEquals(State.ROLLED_UP, shutter.getState());
         assertEquals(0, shutter.getPosition());
     }
@@ -64,11 +63,10 @@ public class RollUpShutterCommandTest extends TestCase {
         );
 
         try {
-            // Durch den Null-Check "if (shutter != null)" in deiner execute()-Methode
-            // darf hier keine NullPointerException fliegen.
+            // Der Null-Check in execute() verhindert eine NullPointerException.
             cmd.execute();
         } catch (NullPointerException e) {
-            fail("execute() sollte bei einem null-Shutter robust sein und keine NullPointerException werfen.");
+            fail("execute() muss bei einem null-Gerät robust sein und darf keine NullPointerException werfen.");
         }
     }
 }
