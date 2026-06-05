@@ -30,18 +30,18 @@ public class SetTemperatureHeatingCommandTest extends TestCase {
                 targetTemperature
         );
 
-        // Überprüfung der Vererbung und des eigenen double-Feldes
+        // Prüft die Weitergabe an BaseCommand und das gerätespezifische double-Feld.
         assertEquals(customId, cmd.getID());
         assertEquals(heating, cmd.getDevice());
         assertEquals(ActionType.SET_TEMPERATURE, cmd.getActionType());
         assertEquals(orderIndex, cmd.getOrderIndex());
-        assertEquals(targetTemperature, cmd.getTemperature(), 0.001); // Delta für double-Vergleich
+        assertEquals(targetTemperature, cmd.getTemperature(), 0.001);
     }
 
     public void testExecuteChangesTemperatureWhenHeatingIsTurnedOn() {
-        // Zustand auf TURNED_ON setzen, damit die Bedingung im Code erfüllt ist
+        // Zustand auf TURNED_ON gesetzt, damit die Ausführungsbedingung erfüllt ist.
         heating.setState(State.TURNED_ON);
-        heating.setTemperature(18.0); // Alter Ausgangswert
+        heating.setTemperature(18.0);
 
         SetTemperatureHeatingCommand cmd = new SetTemperatureHeatingCommand(
                 "CMD-1",
@@ -53,14 +53,14 @@ public class SetTemperatureHeatingCommandTest extends TestCase {
 
         cmd.execute();
 
-        // Die Temperatur muss sich auf 21.5 geändert haben
+        // Erwartete Temperatur nach Ausführung:
         assertEquals(21.5, heating.getTemperature(), 0.001);
     }
 
     public void testExecuteDoesNotChangeTemperatureWhenHeatingIsTurnedOff() {
-        // Zustand auf TURNED_OFF setzen -> Bedingung im Code greift nicht
+        // Zustand auf TURNED_OFF gesetzt, damit die Ausführungsbedingung nicht erfüllt ist.
         heating.setState(State.TURNED_OFF);
-        heating.setTemperature(18.0); // Alter Ausgangswert
+        heating.setTemperature(18.0);
 
         SetTemperatureHeatingCommand cmd = new SetTemperatureHeatingCommand(
                 "CMD-2",
@@ -72,7 +72,7 @@ public class SetTemperatureHeatingCommandTest extends TestCase {
 
         cmd.execute();
 
-        // Da die Heizung aus war, muss die Temperatur unverändert bei 18.0 bleiben
+        // Temperatur bleibt unverändert, da die Heizung ausgeschaltet ist.
         assertEquals(18.0, heating.getTemperature(), 0.001);
     }
 
@@ -86,10 +86,10 @@ public class SetTemperatureHeatingCommandTest extends TestCase {
         );
 
         try {
-            // Durch den Null-Check "if (heating != null ...)" darf keine NullPointerException geworfen werden
+            // Der Null-Check in execute() verhindert eine NullPointerException.
             cmd.execute();
         } catch (NullPointerException e) {
-            fail("execute() sollte bei einer null-Heizung robust sein und keine NullPointerException werfen.");
+            fail("execute() muss bei einem null-Gerät robust sein und darf keine NullPointerException werfen.");
         }
     }
 }

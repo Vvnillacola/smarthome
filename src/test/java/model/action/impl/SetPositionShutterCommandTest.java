@@ -30,7 +30,7 @@ public class SetPositionShutterCommandTest extends TestCase {
                 targetPosition
         );
 
-        // Überprüfung der Vererbung und des eigenen Feldes
+        // Prüft die Weitergabe an BaseCommand und das gerätespezifische Feld.
         assertEquals(customId, cmd.getID());
         assertEquals(shutter, cmd.getDevice());
         assertEquals(ActionType.SET_POSITION, cmd.getActionType());
@@ -39,9 +39,9 @@ public class SetPositionShutterCommandTest extends TestCase {
     }
 
     public void testExecuteChangesPositionWhenShutterIsRolledDown() {
-        // Zustand auf ROLLED_DOWN setzen, um die Bedingung im Code zu erfüllen
+        // Zustand auf ROLLED_DOWN gesetzt, damit die Ausführungsbedingung erfüllt ist.
         shutter.setState(State.ROLLED_DOWN);
-        shutter.setPosition(100); // Alter Wert/Standardwert
+        shutter.setPosition(100);
 
         SetPositionShutterCommand cmd = new SetPositionShutterCommand(
                 "CMD-1",
@@ -53,14 +53,14 @@ public class SetPositionShutterCommandTest extends TestCase {
 
         cmd.execute();
 
-        // Die Position muss nun erfolgreich auf 40 geändert worden sein
+        // Erwartete Position nach Ausführung:
         assertEquals(40, shutter.getPosition());
     }
 
     public void testExecuteDoesNotChangePositionWhenShutterIsNotRolledDown() {
-        // Zustand auf ROLLED_UP setzen -> Bedingung im Code schlägt fehl
+        // Zustand auf ROLLED_UP gesetzt, damit die Ausführungsbedingung nicht erfüllt ist.
         shutter.setState(State.ROLLED_UP);
-        shutter.setPosition(0); // Alter Wert
+        shutter.setPosition(0);
 
         SetPositionShutterCommand cmd = new SetPositionShutterCommand(
                 "CMD-2",
@@ -72,7 +72,7 @@ public class SetPositionShutterCommandTest extends TestCase {
 
         cmd.execute();
 
-        // Da die Bedingung nicht erfüllt war, muss die Position unverändert bei 0 bleiben
+        // Position bleibt unverändert, da der Rollladen nicht heruntergelassen ist.
         assertEquals(0, shutter.getPosition());
     }
 
@@ -86,10 +86,10 @@ public class SetPositionShutterCommandTest extends TestCase {
         );
 
         try {
-            // Durch den Null-Check "if (shutter != null ...)" darf hier keine NullPointerException geworfen werden
+            // Der Null-Check in execute() verhindert eine NullPointerException.
             cmd.execute();
         } catch (NullPointerException e) {
-            fail("execute() sollte bei einem null-Shutter robust sein und keine NullPointerException werfen.");
+            fail("execute() muss bei einem null-Gerät robust sein und darf keine NullPointerException werfen.");
         }
     }
 }

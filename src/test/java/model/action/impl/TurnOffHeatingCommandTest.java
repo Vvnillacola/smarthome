@@ -28,7 +28,7 @@ public class TurnOffHeatingCommandTest extends TestCase {
                 orderIndex
         );
 
-        // Überprüfung, ob die Parameter korrekt an BaseCommand weitergegeben wurden
+        // Prüft, ob die Parameter korrekt an BaseCommand weitergegeben werden.
         assertEquals(customId, cmd.getID());
         assertEquals(heating, cmd.getDevice());
         assertEquals(ActionType.TURN_OFF, cmd.getActionType());
@@ -36,7 +36,7 @@ public class TurnOffHeatingCommandTest extends TestCase {
     }
 
     public void testExecuteChangesHeatingStateToTurnedOff() {
-        // Ausgangszustand explizit auf TURNED_ON setzen, um die Änderung zu überprüfen
+        // Ausgangszustand explizit auf TURNED_ON gesetzt, um die Zustandsänderung prüfbar zu machen.
         heating.setState(State.TURNED_ON);
 
         TurnOffHeatingCommand cmd = new TurnOffHeatingCommand(
@@ -46,10 +46,9 @@ public class TurnOffHeatingCommandTest extends TestCase {
                 0
         );
 
-        // Befehl ausführen
         cmd.execute();
 
-        // Fachliche Zusicherung prüfen
+        // Erwarteter Zustand nach Ausführung:
         assertEquals(State.TURNED_OFF, heating.getState());
     }
 
@@ -62,11 +61,10 @@ public class TurnOffHeatingCommandTest extends TestCase {
         );
 
         try {
-            // Durch den Null-Check "if (heating != null)" in deiner execute()-Methode
-            // darf hier keine NullPointerException fliegen.
+            // Der Null-Check in execute() verhindert eine NullPointerException.
             cmd.execute();
         } catch (NullPointerException e) {
-            fail("execute() sollte bei einer null-Heizung robust sein und keine NullPointerException werfen.");
+            fail("execute() muss bei einem null-Gerät robust sein und darf keine NullPointerException werfen.");
         }
     }
 }

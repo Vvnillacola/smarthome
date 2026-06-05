@@ -28,7 +28,7 @@ public class SmartHomeGuiTest extends ApplicationTest {
         app = new SmartHomeApp();
         app.start(stage);
 
-        // Daten-Setup [cite: 46, 47, 48]
+        // Testdaten anlegen: Raum, Gerät und Szenario mit einer Aktion.
         Raum room = new Raum("Testzimmer");
         app.getRoomService().addRoom(room);
 
@@ -36,56 +36,49 @@ public class SmartHomeGuiTest extends ApplicationTest {
         app.getDeviceService().addDevice(testLamp);
 
         testScenario = new Scenario("Abend-Test", "Automatisch erstelltes Testszenario");
-
-        // ANGEPASST: Konstruktor-Signatur an die Struktur der CommandFactory angepasst
-        // Parameter: context (null), device (testLamp), actionType (TURN_ON), orderIndex (0)
         testScenario.getCommands().add(new TurnOnLampCommand(null, testLamp, ActionType.TURN_ON, 0));
-
         app.getScenarioService().addScenario(testScenario);
     }
 
     @Test
     public void testSzenarioAnlegenViaGui() {
-        // 1. Klicke auf den Navigationsbutton
+        // Navigationsbereich: Szenarien auswählen.
         clickOn("🎬 Szenarien");
 
-        // Warte kurz, bis die Tabelle sichtbar und geladen ist
         verifyThat(".table-view", isVisible());
 
         TableView<?> table = lookup(".table-view").queryAs(TableView.class);
         int initialCount = table.getItems().size();
 
-        // 2. Formular öffnen [cite: 90]
+        // Formular zum Anlegen eines neuen Szenarios öffnen.
         clickOn("Neu");
 
-        // 3. Textfeld fokussieren und beschreiben [cite: 98]
+        // Namen eingeben und bestätigen.
         clickOn(".text-field").write("GUI-Testszenario");
-
-        // 4. Erstellen bestätigen
         clickOn("Erstellen");
 
-        // 5. Dem UI-Thread einen Moment Zeit geben, die Tabelle zu aktualisieren
         WaitForAsyncUtils.waitForFxEvents();
 
-        // Überprüfung
+        // Tabelle muss genau einen Eintrag mehr enthalten.
         assertEquals(initialCount + 1, table.getItems().size());
     }
 
     @Test
     public void testSzenarioAusfuehrenAendertGeraetezustand() {
+        // Ausgangszustand: Lampe ist ausgeschaltet.
         assertEquals(State.TURNED_OFF, testLamp.getState());
 
         clickOn("🎬 Szenarien");
 
-        // Sicherstellen, dass der Eintrag in der Tabelle geklickt werden kann [cite: 89]
+        // Szenario in der Tabelle auswählen und ausführen.
         clickOn("Abend-Test");
-        clickOn("Ausführen"); // [cite: 93]
+        clickOn("Ausführen");
 
-        // Warten, da Command-Ausführungen oft in separaten Threads oder leicht verzögert laufen
+        // Kurze Wartezeit, da die Ausführung asynchron erfolgen kann.
         WaitForAsyncUtils.sleep(200, TimeUnit.MILLISECONDS);
         WaitForAsyncUtils.waitForFxEvents();
 
-        // Überprüft die funktionale Anforderung der Zustandsänderung in der GUI [cite: 51, 115]
+        // Erwarteter Gerätezustand nach Ausführung des Szenarios:
         assertEquals(State.TURNED_ON, testLamp.getState());
     }
 }
