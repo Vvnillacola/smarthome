@@ -39,7 +39,7 @@ public class CommandFactoryTest extends TestCase {
         lamp.setState(State.TURNED_ON);
         Command cmd = CommandFactory.create(lamp, ActionType.TURN_OFF, null, 0);
 
-        assertTrue(cmd instanceof TurnOFfLampCommand); // Exakt wie das "OFf" in deiner Factory
+        assertTrue(cmd instanceof TurnOFfLampCommand); // Exakt wie das "OFf" in der Factory
         cmd.execute();
         assertEquals(State.TURNED_OFF, lamp.getState());
     }
@@ -119,7 +119,7 @@ public class CommandFactoryTest extends TestCase {
 
     public void testCreateInvalidCombinationThrowsException() {
         try {
-            // Testet eine ungültige Kombination (z.B. Lampe soll Temperatur ändern)
+            // Ungültige Kombination: Lampe mit SET_TEMPERATURE ist nicht erlaubt.
             CommandFactory.create(lamp, ActionType.SET_TEMPERATURE, "22", 0);
             fail("Erwartet: IllegalArgumentException");
         } catch (IllegalArgumentException e) {
