@@ -14,14 +14,14 @@ public class SetBrightnessLampCommand extends BaseCommand {
     private final Lamp lamp;
     private final int brightness;
 
-    // Der Jackson-Konstruktor fängt hier auch die Helligkeit ab
+
     @JsonCreator
     public SetBrightnessLampCommand(
             @JsonProperty("id") String id,
             @JsonProperty("device") Lamp lamp,
             @JsonProperty("actionType") ActionType actionType,
             @JsonProperty("orderIndex") int orderIndex,
-            @JsonProperty("brightness") int brightness // Liest das "brightness"-Feld aus dem JSON
+            @JsonProperty("brightness") int brightness
     ) {
         super(id, lamp, actionType, orderIndex);
         this.lamp = lamp;

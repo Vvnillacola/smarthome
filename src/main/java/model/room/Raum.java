@@ -1,6 +1,5 @@
 package model.room;
 
-//Sollte Room heißen - der Name "Room" wurde aus Versehen im Projekt als nicht-Java Vorlage gespeichert, weshalb der Name hier nicht verwendet werden kann
 public class Raum {
     private static int idcounter;
     private int id;

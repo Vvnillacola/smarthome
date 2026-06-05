@@ -13,7 +13,6 @@ public class RollDownShutterCommand extends BaseCommand {
 
     private final Shutter shutter;
 
-    // Der Jackson-Konstruktor fängt die JSON-Felder ab
     @JsonCreator
     public RollDownShutterCommand(
             @JsonProperty("id") String id,
@@ -21,7 +20,6 @@ public class RollDownShutterCommand extends BaseCommand {
             @JsonProperty("actionType") ActionType actionType,
             @JsonProperty("orderIndex") int orderIndex
     ) {
-        // Übergabe an den Jackson-Konstruktor von BaseCommand
         super(id, shutter, actionType, orderIndex);
         this.shutter = shutter;
     }

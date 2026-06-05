@@ -39,8 +39,6 @@ public interface Command {
     void execute();
     Device getDevice();
 
-    // Holt das normale Enum (TURN_ON, TURN_OFF etc.) für deine UI ab
-    // Ohne @JsonIgnore, damit es ganz normal als "actionType" im JSON gespeichert wird!
     ActionType getActionType();
 
     String getID();

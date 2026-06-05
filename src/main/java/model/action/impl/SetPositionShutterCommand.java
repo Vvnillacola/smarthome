@@ -14,14 +14,13 @@ public class SetPositionShutterCommand extends BaseCommand {
     private final Shutter shutter;
     private final int position;
 
-    // Der Jackson-Konstruktor fängt die Zielposition ab
     @JsonCreator
     public SetPositionShutterCommand(
             @JsonProperty("id") String id,
             @JsonProperty("device") Shutter shutter,
             @JsonProperty("actionType") ActionType actionType,
             @JsonProperty("orderIndex") int orderIndex,
-    @JsonProperty("position") int position // Liest das "position"-Feld aus dem JSON
+    @JsonProperty("position") int position
     ) {
         super(id, shutter, actionType, orderIndex);
         this.shutter = shutter;

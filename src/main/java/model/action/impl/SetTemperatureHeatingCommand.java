@@ -14,14 +14,14 @@ public class SetTemperatureHeatingCommand extends BaseCommand {
     private final Heating heating;
     private final double temperature;
 
-    // Der Jackson-Konstruktor fängt das double-Feld für die Temperatur ab
+
     @JsonCreator
     public SetTemperatureHeatingCommand(
             @JsonProperty("id") String id,
             @JsonProperty("device") Heating heating,
             @JsonProperty("actionType") ActionType actionType,
             @JsonProperty("orderIndex") int orderIndex,
-            @JsonProperty("temperature") double temperature // Liest das "temperature"-Feld aus dem JSON
+            @JsonProperty("temperature") double temperature
     ) {
         super(id, heating, actionType, orderIndex);
         this.heating = heating;

@@ -75,7 +75,6 @@ public class SmartHomeApp extends Application {
     public void start(Stage stage) {
         root = new BorderPane();
 
-        // ===== Sidebar =====
         VBox sidebar = new VBox(15);
         sidebar.setPadding(new Insets(20));
         sidebar.setPrefWidth(220);
@@ -104,7 +103,6 @@ public class SmartHomeApp extends Application {
 
         sidebar.getChildren().addAll(title, roomsBtn, devicesBtn, scenariosBtn);
 
-        // ===== Top Bar =====
         HBox topBar = new HBox(10);
         topBar.setPadding(new Insets(10));
         topBar.setAlignment(Pos.CENTER_LEFT);
@@ -211,10 +209,8 @@ public class SmartHomeApp extends Application {
         ComboBox<Scenario> scenarioSelect = new ComboBox<>();
         scenarioSelect.setPrefWidth(200);
 
-        // LIVE-BINDING (wichtig!)
         scenarioSelect.setItems(scenarioService.getScenarios());
 
-        // Anzeige schön machen
         scenarioSelect.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Scenario item, boolean empty) {
@@ -231,7 +227,6 @@ public class SmartHomeApp extends Application {
             }
         });
 
-        // BUTTON wieder hinzufügen
         Button runScenario = new Button("▶ Ausführen");
 
         runScenario.setOnAction(e -> {
@@ -251,7 +246,6 @@ public class SmartHomeApp extends Application {
                 scenarioSelect,
                 runScenario
         );
-        // ===== Center Dashboard =====
         GridPane dashboard = new GridPane();
         dashboard.setPadding(new Insets(20));
         dashboard.setHgap(20);
@@ -260,7 +254,6 @@ public class SmartHomeApp extends Application {
 
 
 
-        // ===== Log Panel =====
         VBox logPanel = new VBox(10);
         logPanel.setPadding(new Insets(15));
         logPanel.setPrefWidth(250);
@@ -280,10 +273,8 @@ public class SmartHomeApp extends Application {
 
         Scene scene = new Scene(root, 1200, 700);
 
-        // Atlantafx Theme
         scene.getStylesheets().add(new PrimerLight().getUserAgentStylesheet());
 
-        // Custom styling
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
         stage.setTitle("Smart Home");
@@ -407,7 +398,6 @@ public class SmartHomeApp extends Application {
         deleteDevice.setOnAction(e -> {
             Device gerät = table.getSelectionModel().getSelectedItem();
             if (gerät != null) {
-                // LOGIK: Prüfen, ob das Gerät in irgendeinem Szenario verwendet wird
                 boolean isUsedInScenario = false;
                 String scenarioName = "";
 
@@ -478,7 +468,6 @@ public class SmartHomeApp extends Application {
 
         HBox roomBar = new HBox(10, roomLabel, roomBox);
 
-        // ===== Zustand =====
         Label stateLabel = new Label("Zustand:");
 
         ToggleButton stateToggle = new ToggleButton();
@@ -496,7 +485,6 @@ public class SmartHomeApp extends Application {
                 stateBar );
 
 
-        // ===== Buttons =====
         Button backBtn = new Button("Zurück");
         backBtn.setOnAction(e -> openDevices());
 
@@ -720,7 +708,6 @@ public class SmartHomeApp extends Application {
 
         dialog.getDialogPane().setContent(grid);
 
-        // Ergebnis erzeugen
         dialog.setResultConverter(button -> {
             if (button == saveButtonType) {
                 String name = nameField.getText();
@@ -877,7 +864,6 @@ public class SmartHomeApp extends Application {
         Label nameLabel = new Label("Raumname:");
         TextField nameField = new TextField(room.getName());
 
-        // Zustand
         final boolean[] isEditing = {edit};
 
         nameField.setEditable(isEditing[0]);
@@ -1066,7 +1052,6 @@ public class SmartHomeApp extends Application {
         TextField descriptionField = new TextField(scenario.getDescription());
         descriptionField.setEditable(isEditing[0]);
         HBox descriptionBar = new HBox(10, descriptionLabel, descriptionField);
-        // ===== Liste Aktionen =====
 
         TableView<Command> tableDeviceCommands = new TableView<>();
         TableColumn<Command, String> orderCol = new TableColumn<>("Reihenfolge");
@@ -1090,7 +1075,6 @@ public class SmartHomeApp extends Application {
                 nameBar,
                 descriptionBar,
                 tableDeviceCommands);
-        // ===== Buttons =====
         Button backBtn = new Button("Zurück");
         backBtn.setOnAction(e -> openScenarios());
 
@@ -1206,17 +1190,14 @@ public class SmartHomeApp extends Application {
         Node saveButton = dialog.getDialogPane().lookupButton(saveButtonType);
         saveButton.setDisable(true);
 
-        // ===== FORM =====
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20));
 
-        // ===== DEVICE =====
         ComboBox<Device> deviceBox = new ComboBox<>();
         deviceBox.getItems().addAll(deviceService.getDevices());
 
-        // ===== ACTION TYPE =====
         ComboBox<String> actionTypeBox = new ComboBox<>();
 
         deviceBox.valueProperty().addListener((obs, oldDevice, newDevice) -> {
@@ -1247,10 +1228,8 @@ public class SmartHomeApp extends Application {
             }
         });
 
-        // ===== VALUE =====
         TextField valueBox = new TextField();
 
-        // ===== VALUE TYPE LOGIC =====
         enum ValueType { NONE, INT, DOUBLE }
 
         java.util.function.Function<ActionType, ValueType> getValueType = (actionType) -> {
@@ -1276,7 +1255,6 @@ public class SmartHomeApp extends Application {
             }
         };
 
-        // ===== VALIDATION (FIXED INT/DOUBLE) =====
         Runnable validate = () -> {
 
             Device device = deviceBox.getValue();
@@ -1335,7 +1313,6 @@ public class SmartHomeApp extends Application {
             saveButton.setDisable(invalid);
         };
 
-        // ===== LISTENERS =====
         actionTypeBox.valueProperty().addListener((obs, oldVal, newVal) -> {
             applyValueState.run();
             validate.run();
@@ -1349,7 +1326,6 @@ public class SmartHomeApp extends Application {
             validate.run();
         });
 
-        // ===== UI =====
         grid.add(new Label("Gerät:"), 0, 0);
         grid.add(deviceBox, 1, 0);
 
@@ -1361,7 +1337,6 @@ public class SmartHomeApp extends Application {
 
         dialog.getDialogPane().setContent(grid);
 
-        // ===== RESULT =====
         dialog.setResultConverter(button -> {
 
             if (button == saveButtonType) {
@@ -1444,9 +1419,6 @@ public class SmartHomeApp extends Application {
                 "Gerät: " + command.getDevice().getName()
         );
 
-        // =====================================================
-        // ACTION TYPE (ENUM statt String/DeviceAction)
-        // =====================================================
 
         Label actionTypeLabel = new Label("Aktionstyp:");
 
@@ -1462,9 +1434,6 @@ public class SmartHomeApp extends Application {
 
         HBox actionTypeBar = new HBox(10, actionTypeLabel, actionTypeBox);
 
-        // =====================================================
-        // VALUE (abhängig vom ActionType)
-        // =====================================================
 
         Label valueLabel = new Label("Wert:");
         TextField valueField = new TextField();
@@ -1490,16 +1459,10 @@ public class SmartHomeApp extends Application {
                 valueBar
         );
 
-        // =====================================================
-        // BACK
-        // =====================================================
 
         Button backBtn = new Button("Zurück");
         backBtn.setOnAction(e -> openScenarioEditor(editScenario, scenario));
 
-        // =====================================================
-        // VALUE TYPE MAPPING (bleibt sinnvoll für Validation)
-        // =====================================================
 
         enum ValueType { NONE, INT, DOUBLE }
 
@@ -1514,9 +1477,6 @@ public class SmartHomeApp extends Application {
             };
         };
 
-        // =====================================================
-        // APPLY VALUE STATE
-        // =====================================================
 
         Runnable applyValueState = () -> {
             ValueType type = getValueType.apply(actionTypeBox.getValue());
@@ -1529,9 +1489,6 @@ public class SmartHomeApp extends Application {
             }
         };
 
-        // =====================================================
-        // SAVE / EDIT BUTTON
-        // =====================================================
 
         Button editBtn = new Button(isEditing[0] ? "Speichern" : "Bearbeiten");
 
@@ -1568,10 +1525,6 @@ public class SmartHomeApp extends Application {
 
             editBtn.setText("Speichern");
         });
-
-        // =====================================================
-        // VALIDATION
-        // =====================================================
 
         Runnable validate = () -> {
 
@@ -1614,9 +1567,6 @@ public class SmartHomeApp extends Application {
             editBtn.setDisable(type == null || !valueValid);
         };
 
-        // =====================================================
-        // LISTENERS
-        // =====================================================
 
         actionTypeBox.valueProperty().addListener((obs, o, n) -> {
             applyValueState.run();
@@ -1626,10 +1576,6 @@ public class SmartHomeApp extends Application {
         valueField.textProperty().addListener((obs, o, n) -> {
             validate.run();
         });
-
-        // =====================================================
-        // INITIAL STATE
-        // =====================================================
 
         applyValueState.run();
         validate.run();
